@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동향조사 브리핑 - 귀여운 친구들과 함께 배우기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'styreneB', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: rgb(40, 44, 52);
+            min-height: 100vh;
+            color: rgb(171, 178, 191);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: rgb(171, 178, 191);
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: rgb(255, 255, 255);
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: rgb(156, 163, 175);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .user-info {
+            position: absolute;
+            top: 15px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .user-info:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .user-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, rgb(198, 120, 221), rgb(86, 182, 194));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.4rem;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(198, 120, 221, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .user-info:hover .user-avatar {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 25px rgba(198, 120, 221, 0.4);
+        }
+
+        .user-details {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: rgb(255, 255, 255);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .user-dept {
+            color: rgb(156, 163, 175);
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .logout-btn {
+            background: rgba(224, 108, 117, 0.2);
+            color: rgb(224, 108, 117);
+            border: 1px solid rgba(224, 108, 117, 0.3);
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .logout-btn:hover {
+            background: rgba(224, 108, 117, 0.3);
+            border-color: rgba(224, 108, 117, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(224, 108, 117, 0.3);
+        }
+
+        .character-selector {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+
+        .character-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px 28px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgb(171, 178, 191);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .character-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .character-btn.active {
+            background: rgb(198, 120, 221);
+            color: white;
+            border-color: rgb(198, 120, 221);
+            box-shadow: 0 8px 25px rgba(198, 120, 221, 0.3);
+        }
+
+        .trend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .trend-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .trend-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .video-preview {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, rgb(198, 120, 221), rgb(86, 182, 194));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 68px;
+            height: 68px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: rgb(255, 255, 255);
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: rgb(255, 255, 255);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .card-content p {
+            color: rgb(156, 163, 175);
+            line-height: 1.6;
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            color: rgb(156, 163, 175);
+            margin-bottom: 16px;
+        }
+
+        .difficulty {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .difficulty.easy { 
+            background: rgba(152, 195, 121, 0.2); 
+            color: rgb(152, 195, 121); 
+            border-color: rgba(152, 195, 121, 0.3);
+        }
+        .difficulty.medium { 
+            background: rgba(230, 192, 123, 0.2); 
+            color: rgb(230, 192, 123); 
+            border-color: rgba(230, 192, 123, 0.3);
+        }
+        .difficulty.hard { 
+            background: rgba(224, 108, 117, 0.2); 
+            color: rgb(224, 108, 117); 
+            border-color: rgba(224, 108, 117, 0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgb(198, 120, 221), rgb(86, 182, 194));
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .quiz-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 36px;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 모달 스타일 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-container {
+            background: rgb(40, 44, 52);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-overlay.show .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            color: rgb(255, 255, 255);
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .modal-content {
+            padding: 32px;
+            max-height: calc(90vh - 120px);
+            overflow-y: auto;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+        }
+
+        .modal-tab {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgb(171, 178, 191);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .modal-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-tab.active {
+            background: rgb(198, 120, 221);
+            color: white;
+            border-color: rgb(198, 120, 221);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 비디오 섹션 */
+        .video-section {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgb(198, 120, 221), rgb(86, 182, 194));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            text-align: center;
+            color: white;
+        }
+
+        .video-placeholder h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .video-placeholder p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* AI 동영상 생성 폼 */
+        .ai-video-form {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .ai-video-form h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgb(171, 178, 191);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: rgb(198, 120, 221);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .generate-btn,
+        .api-key-btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 160px;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, rgb(198, 120, 221), rgb(86, 182, 194));
+            color: white;
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(198, 120, 221, 0.4);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .api-key-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgb(171, 178, 191);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .api-key-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* 생성 진행률 */
+        .generation-progress {
+            text-align: center;
+            margin: 24px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, rgb(198, 120, 221), rgb(86, 182, 194));
+            width: 0%;
+            animation: progressAnimation 2s ease-in-out infinite;
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .generation-progress p {
+            color: rgb(171, 178, 191);
+            font-size: 1rem;
+        }
+
+        /* API 키 설정 모달 */
+        .api-key-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .api-key-content {
+            background: rgb(40, 44, 52);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .api-key-content h3 {
+            color: white;
+            margin-bottom: 16px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .api-key-content p {
+            color: rgb(171, 178, 191);
+            margin-bottom: 24px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .api-key-content .form-actions {
+            margin-top: 24px;
+        }
+
+        .save-btn,
+        .cancel-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 100px;
+        }
+
+        .save-btn {
+            background: rgb(86, 182, 194);
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: rgb(76, 172, 184);
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgb(171, 178, 191);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cancel-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .api-key-help {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .api-key-help p {
+            margin-bottom: 12px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .api-key-help ol {
+            color: rgb(171, 178, 191);
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+
+        .api-key-help a {
+            color: rgb(86, 182, 194);
+            text-decoration: none;
+        }
+
+        .api-key-help a:hover {
+            text-decoration: underline;
+        }
+
+        /* 요약 섹션 */
+        .summary-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .summary-section h3 {
+            color: rgb(255, 255, 255);
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .summary-content {
+            color: rgb(156, 163, 175);
+            line-height: 1.6;
+        }
+
+        /* 퀴즈 섹션 */
+        .modal-quiz-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .modal-quiz-section h3 {
+            color: rgb(255, 255, 255);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .modal-quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-quiz-option {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgb(171, 178, 191);
+            font-weight: 500;
+        }
+
+        .modal-quiz-option:hover {
+            border-color: rgb(198, 120, 221);
+            background: rgba(198, 120, 221, 0.1);
+            color: rgb(255, 255, 255);
+            transform: translateX(4px);
+        }
+
+        .modal-quiz-option.correct {
+            border-color: rgb(152, 195, 121);
+            background: rgba(152, 195, 121, 0.15);
+            color: rgb(152, 195, 121);
+        }
+
+        .modal-quiz-option.incorrect {
+            border-color: rgb(224, 108, 117);
+            background: rgba(224, 108, 117, 0.15);
+            color: rgb(224, 108, 117);
+        }
+
+        .explanation {
+            background: rgba(198, 120, 221, 0.1);
+            border: 1px solid rgba(198, 120, 221, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            color: rgb(198, 120, 221);
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        /* 진행률 표시 */
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            color: rgb(156, 163, 175);
+            font-size: 0.9rem;
+        }
+
+        .completion-btn {
+            background: rgb(198, 120, 221);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .completion-btn:hover {
+            background: rgb(209, 154, 102);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(198, 120, 221, 0.3);
+        }
+
+        .quiz-section h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: rgb(255, 255, 255);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 4px solid rgb(198, 120, 221);
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+        }
+
+        .quiz-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .quiz-card h4 {
+            margin-bottom: 18px;
+            color: rgb(255, 255, 255);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgb(171, 178, 191);
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: rgb(198, 120, 221);
+            background: rgba(198, 120, 221, 0.1);
+            color: rgb(255, 255, 255);
+            transform: translateX(4px);
+        }
+
+        .quiz-option.correct {
+            border-color: rgb(152, 195, 121);
+            background: rgba(152, 195, 121, 0.15);
+            color: rgb(152, 195, 121);
+        }
+
+        .quiz-option.incorrect {
+            border-color: rgb(224, 108, 117);
+            background: rgba(224, 108, 117, 0.15);
+            color: rgb(224, 108, 117);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .trend-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .character-selector {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+            
+            .user-info {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 0 auto 30px;
+                width: fit-content;
+                padding: 16px 20px;
+            }
+            
+            .header {
+                padding-top: 20px;
+            }
+            
+            .user-avatar {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            
+            .user-name {
+                font-size: 1rem;
+            }
+            
+            .user-dept {
+                font-size: 0.85rem;
+            }
+            
+            .logout-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="user-info" id="userInfo">
+                <div class="user-avatar" id="userAvatar">김</div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">김전파</div>
+                    <div class="user-dept" id="userDept">전파기술팀</div>
+                </div>
+                <button class="logout-btn" onclick="logout()">로그아웃</button>
+            </div>
+            <h1>🐱🐕 전파 동향조사 브리핑</h1>
+            <p>귀여운 친구들과 함께 재미있게 배우는 전파 기술 동향</p>
+        </div>
+
+        <div class="character-selector">
+            <button class="character-btn active" onclick="selectCharacter('cat')">
+                🐱 고양이와 함께
+            </button>
+            <button class="character-btn" onclick="selectCharacter('dog')">
+                🐕 강아지와 함께
+            </button>
+        </div>
+
+        <div class="trend-grid" id="trendGrid">
+            <!-- 동향조사 카드들이 여기에 동적으로 생성됩니다 -->
+        </div>
+
+        <div class="quiz-section">
+            <h2>📚 오늘의 복습 퀴즈</h2>
+            <div class="quiz-grid" id="quizGrid">
+                <!-- 퀴즈 카드들이 여기에 동적으로 생성됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 동향조사 모달 -->
+    <div class="modal-overlay" id="trendModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">
+                    <span id="modalCharacter">🐱</span>
+                    <span id="modalTitleText">동향조사 제목</span>
+                </div>
+                <button class="modal-close" onclick="closeTrendModal()">×</button>
+            </div>
+            
+            <div class="modal-content">
+                <div class="modal-tabs">
+                    <div class="modal-tab active" onclick="switchTab('video')">🎬 동영상</div>
+                    <div class="modal-tab" onclick="switchTab('summary')">📝 요약</div>
+                    <div class="modal-tab" onclick="switchTab('quiz')">❓ 퀴즈</div>
+                </div>
+
+                <!-- 동영상 탭 -->
+                <div class="tab-content active" id="videoTab">
+                    <div class="video-section">
+                        <!-- AI 동영상 생성 폼 -->
+                        <div class="ai-video-form" id="aiVideoForm">
+                            <h3>🤖 AI 동영상 생성</h3>
+                            <div class="form-group">
+                                <label for="videoPrompt">동영상 설명:</label>
+                                <textarea id="videoPrompt" placeholder="예: 고양이가 6G 전파 기술을 설명하는 애니메이션" rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="videoDuration">길이 (초):</label>
+                                    <select id="videoDuration">
+                                        <option value="5">5초</option>
+                                        <option value="10" selected>10초</option>
+                                        <option value="15">15초</option>
+                                        <option value="20">20초</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="videoQuality">품질:</label>
+                                    <select id="videoQuality">
+                                        <option value="standard">표준</option>
+                                        <option value="high" selected>고품질</option>
+                                        <option value="ultra">초고품질</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button class="generate-btn" onclick="generateAIVideo()" id="generateBtn">🎬 AI 동영상 생성</button>
+                                <button class="api-key-btn" onclick="showApiKeyModal()">🔑 API 키 설정</button>
+                            </div>
+                        </div>
+
+                        <!-- 동영상 플레이어 -->
+                        <div class="video-player" id="videoPlayer" style="display: none;">
+                            <div class="video-placeholder" id="videoPlaceholder">
+                                <h3>AI가 생성한 동영상</h3>
+                                <p id="videoDescription">동영상이 생성되었습니다</p>
+                                <video id="generatedVideo" controls style="width: 100%; height: 100%; object-fit: contain;">
+                                    <source src="" type="video/mp4">
+                                    브라우저가 비디오를 지원하지 않습니다.
+                                </video>
+                            </div>
+                        </div>
+
+                        <!-- 동영상 컨트롤 -->
+                        <div class="video-controls" id="videoControls" style="display: none;">
+                            <button class="control-btn" onclick="playVideo()">▶️ 재생</button>
+                            <button class="control-btn" onclick="pauseVideo()">⏸️ 일시정지</button>
+                            <button class="control-btn" onclick="resetVideo()">🔄 다시보기</button>
+                            <button class="control-btn" onclick="downloadVideo()">💾 다운로드</button>
+                        </div>
+
+                        <!-- 생성 진행률 표시 -->
+                        <div class="generation-progress" id="generationProgress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <p id="progressText">동영상을 생성하고 있습니다...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 요약 탭 -->
+                <div class="tab-content" id="summaryTab">
+                    <div class="summary-section">
+                        <h3>📚 학습 내용 요약</h3>
+                        <div class="summary-content" id="summaryContent">
+                            <!-- 요약 내용이 여기에 동적으로 생성됩니다 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 퀴즈 탭 -->
+                <div class="tab-content" id="quizTab">
+                    <div class="modal-quiz-section">
+                        <h3>❓ 학습 확인 퀴즈</h3>
+                        <div class="modal-quiz-options" id="modalQuizOptions">
+                            <!-- 퀴즈 옵션이 여기에 동적으로 생성됩니다 -->
+                        </div>
+                        <div class="explanation" id="modalExplanation">
+                            <!-- 정답 설명이 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 진행률 및 완료 버튼 -->
+                <div class="progress-info">
+                    <span>진행률: <span id="modalProgress">0</span>%</span>
+                    <span id="modalDuration">⏱️ 4분</span>
+                </div>
+                <button class="completion-btn" onclick="completeTrend()">✅ 학습 완료하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 동향조사 데이터
+        const trendData = [
+            {
+                id: 1,
+                title: "6G 전파 기술 발전 동향",
+                description: "2024-2025년 6G 전파 기술의 핵심 요소와 국제 표준화 동향을 분석합니다.",
+                duration: "4분",
+                difficulty: "hard",
+                category: "전파기술",
+                progress: 0,
+                character: "cat"
+            },
+            {
+                id: 2,
+                title: "스펙트럼 정책 및 할당 현황",
+                description: "5G/6G 서비스를 위한 주파수 대역 할당과 스펙트럼 정책의 최신 동향을 살펴봅니다.",
+                duration: "5분",
+                difficulty: "medium",
+                category: "전파정책",
+                progress: 0,
+                character: "dog"
+            },
+            {
+                id: 3,
+                title: "전파환경 변화와 전자파 안전",
+                description: "증가하는 전파 환경에서의 전자파 안전 기준과 보호 정책을 분석합니다.",
+                duration: "4분",
+                difficulty: "medium",
+                category: "전파안전",
+                progress: 0,
+                character: "cat"
+            },
+            {
+                id: 4,
+                title: "위성통신 및 우주 전파 기술",
+                description: "스타링크, 원웹 등 위성통신 서비스와 우주 전파 기술의 발전 방향을 탐구합니다.",
+                duration: "6분",
+                difficulty: "hard",
+                category: "위성통신",
+                progress: 0,
+                character: "dog"
+            },
+            {
+                id: 5,
+                title: "IoT 및 사물인터넷 전파 환경",
+                description: "IoT 기기 증가에 따른 전파 환경 변화와 스마트시티 전파 인프라 구축 현황을 분석합니다.",
+                duration: "4분",
+                difficulty: "easy",
+                category: "IoT전파",
+                progress: 0,
+                character: "cat"
+            },
+            {
+                id: 6,
+                title: "전파 간섭 및 해결 방안",
+                description: "증가하는 전파 간섭 문제와 이를 해결하기 위한 기술적, 정책적 방안을 살펴봅니다.",
+                duration: "5분",
+                difficulty: "medium",
+                category: "전파간섭",
+                progress: 0,
+                character: "dog"
+            },
+            {
+                id: 7,
+                title: "차세대 이동통신 표준화 동향",
+                description: "3GPP를 중심으로 한 5G Advanced, 6G 표준화 진행 상황과 주요 기술 요소를 분석합니다.",
+                duration: "6분",
+                difficulty: "hard",
+                category: "표준화",
+                progress: 0,
+                character: "cat"
+            },
+            {
+                id: 8,
+                title: "전파 산업 생태계 변화",
+                description: "전파 산업의 디지털 전환과 새로운 비즈니스 모델, 시장 구조 변화를 분석합니다.",
+                duration: "4분",
+                difficulty: "medium",
+                category: "산업동향",
+                progress: 0,
+                character: "dog"
+            }
+        ];
+
+        // 퀴즈 데이터
+        const quizData = [
+            {
+                id: 1,
+                question: "6G 전파 기술의 핵심 주파수 대역은?",
+                options: ["Sub-6GHz", "28GHz", "100GHz 이상", "2.4GHz"],
+                correct: 2,
+                explanation: "6G는 100GHz 이상의 테라헤르츠 대역을 활용하여 초고속, 초저지연 통신을 구현합니다."
+            },
+            {
+                id: 2,
+                question: "스펙트럼 할당에서 가장 중요한 고려사항은?",
+                options: ["경제적 가치", "기술적 효율성", "국제 표준화", "모든 위 요소"],
+                correct: 3,
+                explanation: "스펙트럼 할당은 경제적 가치, 기술적 효율성, 국제 표준화를 모두 고려해야 합니다."
+            },
+            {
+                id: 3,
+                question: "전자파 안전 기준을 정하는 국제 기구는?",
+                options: ["ITU", "WHO", "ICNIRP", "3GPP"],
+                correct: 2,
+                explanation: "ICNIRP(국제비이온화방사선방호위원회)가 전자파 안전 기준을 제정합니다."
+            },
+            {
+                id: 4,
+                question: "위성통신에서 가장 큰 기술적 도전은?",
+                options: ["비용", "지연시간", "대역폭", "신호 강도"],
+                correct: 1,
+                explanation: "위성통신은 지구와 위성 간의 거리로 인한 지연시간이 가장 큰 기술적 도전입니다."
+            },
+            {
+                id: 5,
+                question: "IoT 전파 환경에서 주파수 효율성을 높이는 기술은?",
+                options: ["MIMO", "OFDM", "NOMA", "모든 위 기술"],
+                correct: 3,
+                explanation: "MIMO, OFDM, NOMA 등 모든 기술이 IoT 전파 환경의 주파수 효율성을 높이는 데 기여합니다."
+            }
+        ];
+
+        let selectedCharacter = 'cat';
+
+        // 캐릭터 선택
+        function selectCharacter(character) {
+            selectedCharacter = character;
+            
+            // 버튼 활성화 상태 변경
+            document.querySelectorAll('.character-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 동향조사 카드 렌더링
+            renderTrendCards();
+        }
+
+        // 동향조사 카드 렌더링
+        function renderTrendCards() {
+            const grid = document.getElementById('trendGrid');
+            grid.innerHTML = '';
+
+            trendData.forEach(trend => {
+                if (trend.character === selectedCharacter) {
+                    const card = createTrendCard(trend);
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        // 동향조사 카드 생성
+        function createTrendCard(trend) {
+            const card = document.createElement('div');
+            card.className = 'trend-card';
+            card.onclick = () => openTrendVideo(trend);
+
+            const characterEmoji = trend.character === 'cat' ? '🐱' : '🐕';
+            
+            card.innerHTML = `
+                <div class="video-preview">
+                    <div class="character-avatar">${characterEmoji}</div>
+                    <div class="play-button">▶️</div>
+                </div>
+                <div class="card-content">
+                    <h3>${trend.title}</h3>
+                    <p>${trend.description}</p>
+                    <div class="card-meta">
+                        <span>⏱️ ${trend.duration}</span>
+                        <span class="difficulty ${trend.difficulty}">${getDifficultyText(trend.difficulty)}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${trend.progress}%"></div>
+                    </div>
+                    <small>진행률: ${trend.progress}%</small>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // 난이도 텍스트 변환
+        function getDifficultyText(difficulty) {
+            const difficultyMap = {
+                'easy': '초급',
+                'medium': '중급',
+                'hard': '고급'
+            };
+            return difficultyMap[difficulty] || difficulty;
+        }
+
+        // 동향조사 모달 열기
+        function openTrendVideo(trend) {
+            currentTrend = trend;
+            setupModal(trend);
+            showTrendModal();
+        }
+
+        // 현재 선택된 동향조사
+        let currentTrend = null;
+        let videoProgress = 0;
+        let isVideoPlaying = false;
+
+        // 모달 설정
+        function setupModal(trend) {
+            const characterEmoji = trend.character === 'cat' ? '🐱' : '🐕';
+            const characterName = trend.character === 'cat' ? '고양이' : '강아지';
+            
+            document.getElementById('modalCharacter').textContent = characterEmoji;
+            document.getElementById('modalTitleText').textContent = trend.title;
+            document.getElementById('modalDuration').textContent = `⏱️ ${trend.duration}`;
+            document.getElementById('modalProgress').textContent = trend.progress;
+            document.getElementById('videoDescription').textContent = `${characterName}가 ${trend.title}을 설명합니다`;
+            
+            // 요약 내용 설정
+            setupSummaryContent(trend);
+            
+            // 퀴즈 설정
+            setupModalQuiz(trend);
+            
+            // 탭 초기화
+            switchTab('video');
+        }
+
+        // 요약 내용 설정
+        function setupSummaryContent(trend) {
+            const summaries = {
+                "6G 전파 기술 발전 동향": `
+                    <h4>🔬 6G 핵심 기술 요소</h4>
+                    <ul>
+                        <li><strong>테라헤르츠 대역</strong>: 100GHz 이상 주파수 활용</li>
+                        <li><strong>AI 통합</strong>: 네트워크 최적화 및 자원 관리</li>
+                        <li><strong>홀로그램 통신</strong>: 3D 영상 전송 기술</li>
+                        <li><strong>양자 통신</strong>: 보안성 강화</li>
+                    </ul>
+                    
+                    <h4>🌍 국제 표준화 동향</h4>
+                    <ul>
+                        <li><strong>ITU-R</strong>: 6G 비전 및 요구사항 정의</li>
+                        <li><strong>3GPP</strong>: Release 19-20에서 6G 연구 시작</li>
+                        <li><strong>Next G Alliance</strong>: 북미 6G 이니셔티브</li>
+                        <li><strong>6G Flagship</strong>: 핀란드 주도 연구 프로그램</li>
+                    </ul>
+                    
+                    <h4>📅 개발 로드맵</h4>
+                    <ul>
+                        <li><strong>2024-2026</strong>: 기술 연구 및 개념 검증</li>
+                        <li><strong>2027-2029</strong>: 표준화 및 프로토타입</li>
+                        <li><strong>2030</strong>: 상용화 시작</li>
+                    </ul>
+                `,
+                "스펙트럼 정책 및 할당 현황": `
+                    <h4>📡 주요 주파수 대역</h4>
+                    <ul>
+                        <li><strong>Sub-6GHz</strong>: 3.4-3.8GHz, 4.4-4.9GHz</li>
+                        <li><strong>밀리미터파</strong>: 24.25-27.5GHz, 37-43.5GHz</li>
+                        <li><strong>테라헤르츠</strong>: 95GHz-3THz (6G 후보)</li>
+                    </ul>
+                    
+                    <h4>🏛️ 정책 동향</h4>
+                    <ul>
+                        <li><strong>국제 조화</strong>: ITU WRC-23 결과 반영</li>
+                        <li><strong>산업 협력</strong>: 민관 협력 체계 구축</li>
+                        <li><strong>기술 중립</strong>: 서비스별 제한 완화</li>
+                    </ul>
+                `,
+                "전파환경 변화와 전자파 안전": `
+                    <h4>⚠️ 전자파 안전 기준</h4>
+                    <ul>
+                        <li><strong>ICNIRP 가이드라인</strong>: 국제 표준</li>
+                        <li><strong>한국 기준</strong>: 전자파 인체보호 기준</li>
+                        <li><strong>5G 특화</strong>: 밀리미터파 안전성 연구</li>
+                    </ul>
+                    
+                    <h4>🔬 최신 연구 결과</h4>
+                    <ul>
+                        <li><strong>WHO 연구</strong>: 전자파와 건강 영향</li>
+                        <li><strong>국내 연구</strong>: 한국전자통신연구원</li>
+                        <li><strong>산학 협력</strong>: 대학 연구소와의 공동 연구</li>
+                    </ul>
+                `
+            };
+            
+            const summaryContent = summaries[trend.title] || `
+                <h4>📚 ${trend.title}</h4>
+                <p>${trend.description}</p>
+                <p>이 동향조사는 ${trend.duration} 동안 ${characterName}와 함께 학습할 수 있습니다.</p>
+            `;
+            
+            document.getElementById('summaryContent').innerHTML = summaryContent;
+        }
+
+        // 모달 퀴즈 설정
+        function setupModalQuiz(trend) {
+            const quizQuestions = {
+                "6G 전파 기술 발전 동향": {
+                    question: "6G 전파 기술에서 테라헤르츠 대역의 주요 특징은?",
+                    options: ["넓은 대역폭과 높은 전송률", "긴 전파 거리", "낮은 전력 소모", "간섭 저항성"],
+                    correct: 0,
+                    explanation: "테라헤르츠 대역은 매우 넓은 대역폭을 제공하여 초고속 데이터 전송이 가능하지만, 전파 거리는 짧고 전력 소모가 높은 특징이 있습니다."
+                },
+                "스펙트럼 정책 및 할당 현황": {
+                    question: "5G/6G 서비스를 위한 주파수 할당에서 가장 중요한 고려사항은?",
+                    options: ["경제적 가치", "기술적 효율성", "국제 표준화", "모든 위 요소"],
+                    correct: 3,
+                    explanation: "스펙트럼 할당은 경제적 가치, 기술적 효율성, 국제 표준화를 모두 고려해야 하는 복합적인 문제입니다."
+                },
+                "전파환경 변화와 전자파 안전": {
+                    question: "전자파 안전 기준을 정하는 국제 기구는?",
+                    options: ["ITU", "WHO", "ICNIRP", "3GPP"],
+                    correct: 2,
+                    explanation: "ICNIRP(국제비이온화방사선방호위원회)가 전자파 안전 기준을 제정합니다."
+                }
+            };
+            
+            const quiz = quizQuestions[trend.title] || {
+                question: `${trend.title}에 대한 기본 질문입니다.`,
+                options: ["옵션 1", "옵션 2", "옵션 3", "옵션 4"],
+                correct: 0,
+                explanation: "정답에 대한 설명입니다."
+            };
+            
+            const quizHTML = `
+                <h4>${quiz.question}</h4>
+                ${quiz.options.map((option, index) => `
+                    <div class="modal-quiz-option" onclick="selectModalQuizOption(this, ${index}, ${quiz.correct})">
+                        ${String.fromCharCode(65 + index)}. ${option}
+                    </div>
+                `).join('')}
+            `;
+            
+            document.getElementById('modalQuizOptions').innerHTML = quizHTML;
+            document.getElementById('modalExplanation').innerHTML = `<strong>정답: ${String.fromCharCode(65 + quiz.correct)}. ${quiz.options[quiz.correct]}</strong><br>${quiz.explanation}`;
+        }
+
+        // 모달 퀴즈 옵션 선택
+        function selectModalQuizOption(element, selectedIndex, correctIndex) {
+            const options = element.parentElement.querySelectorAll('.modal-quiz-option');
+            
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== correctIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // 정답 설명 표시
+            document.getElementById('modalExplanation').classList.add('show');
+            
+            // 진행률 업데이트
+            if (selectedIndex === correctIndex) {
+                videoProgress = Math.min(videoProgress + 25, 100);
+                updateModalProgress();
+            }
+        }
+
+        // 모달 진행률 업데이트
+        function updateModalProgress() {
+            document.getElementById('modalProgress').textContent = videoProgress;
+        }
+
+        // 모달 표시
+        function showTrendModal() {
+            document.getElementById('trendModal').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('trendModal').classList.add('show');
+            }, 10);
+            
+            // ESC 키 이벤트 리스너 추가
+            document.addEventListener('keydown', handleEscapeKey);
+            
+            // 모달 외부 클릭 이벤트 리스너 추가
+            document.getElementById('trendModal').addEventListener('click', handleModalOutsideClick);
+        }
+
+        // ESC 키 처리
+        function handleEscapeKey(event) {
+            if (event.key === 'Escape') {
+                closeTrendModal();
+            }
+        }
+
+        // 모달 외부 클릭 처리
+        function handleModalOutsideClick(event) {
+            if (event.target.id === 'trendModal') {
+                closeTrendModal();
+            }
+        }
+
+        // 모달 닫기
+        function closeTrendModal() {
+            document.getElementById('trendModal').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('trendModal').style.display = 'none';
+            }, 300);
+            
+            // 이벤트 리스너 제거
+            document.removeEventListener('keydown', handleEscapeKey);
+            document.getElementById('trendModal').removeEventListener('click', handleModalOutsideClick);
+            
+            // 동영상 상태 리셋
+            isVideoPlaying = false;
+            videoProgress = 0;
+        }
+
+        // 탭 전환
+        function switchTab(tabName) {
+            // 모든 탭 비활성화
+            document.querySelectorAll('.modal-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 선택된 탭 활성화
+            event.target.classList.add('active');
+            document.getElementById(tabName + 'Tab').classList.add('active');
+        }
+
+        // 동영상 재생
+        function playVideo() {
+            if (!isVideoPlaying) {
+                isVideoPlaying = true;
+                const placeholder = document.getElementById('videoPlaceholder');
+                placeholder.innerHTML = `
+                    <h3>🎬 동영상 재생 중...</h3>
+                    <p>${currentTrend.character === 'cat' ? '고양이' : '강아지'}가 ${currentTrend.title}을 설명하고 있습니다</p>
+                    <div style="margin-top: 20px;">
+                        <div style="width: 200px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 0 auto;">
+                            <div style="width: 60%; height: 100%; background: white; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                `;
+                
+                // 진행률 증가 시뮬레이션
+                const progressInterval = setInterval(() => {
+                    if (videoProgress < 100 && isVideoPlaying) {
+                        videoProgress += 2;
+                        updateModalProgress();
+                    } else {
+                        clearInterval(progressInterval);
+                        isVideoPlaying = false;
+                    }
+                }, 1000);
+            }
+        }
+
+        // 동영상 일시정지
+        function pauseVideo() {
+            isVideoPlaying = false;
+            const placeholder = document.getElementById('videoPlaceholder');
+            placeholder.innerHTML = `
+                <h3>⏸️ 동영상 일시정지</h3>
+                <p>${currentTrend.character === 'cat' ? '고양이' : '강아지'}가 잠시 쉬고 있습니다</p>
+            `;
+        }
+
+        // 동영상 리셋
+        function resetVideo() {
+            isVideoPlaying = false;
+            videoProgress = 0;
+            updateModalProgress();
+            const placeholder = document.getElementById('videoPlaceholder');
+            const characterName = currentTrend.character === 'cat' ? '고양이' : '강아지';
+            placeholder.innerHTML = `
+                <h3>동영상을 재생하려면 클릭하세요</h3>
+                <p>${characterName}가 ${currentTrend.title}을 설명합니다</p>
+            `;
+        }
+
+        // 동향조사 완료
+        function completeTrend() {
+            if (videoProgress >= 80) {
+                alert(`🎉 ${currentTrend.title} 학습을 완료했습니다!\n\n진행률: ${videoProgress}%\n수고하셨습니다!`);
+                
+                // 진행률 업데이트
+                currentTrend.progress = 100;
+                updateTrendProgress(currentTrend.id);
+                
+                closeTrendModal();
+            } else {
+                alert(`⚠️ 학습을 완료하려면 최소 80% 이상 진행해야 합니다.\n\n현재 진행률: ${videoProgress}%`);
+            }
+        }
+
+        // 동향조사 진행률 업데이트
+        function updateTrendProgress(trendId) {
+            const trend = trendData.find(t => t.id === trendId);
+            if (trend) {
+                trend.progress = 100;
+                renderTrendCards(); // 카드 다시 렌더링
+            }
+        }
+
+        // 퀴즈 렌더링
+        function renderQuizzes() {
+            const grid = document.getElementById('quizGrid');
+            grid.innerHTML = '';
+
+            quizData.forEach(quiz => {
+                const card = createQuizCard(quiz);
+                grid.appendChild(card);
+            });
+        }
+
+        // 퀴즈 카드 생성
+        function createQuizCard(quiz) {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+
+            card.innerHTML = `
+                <h4>${quiz.question}</h4>
+                <div class="quiz-options">
+                    ${quiz.options.map((option, index) => `
+                        <div class="quiz-option" onclick="selectQuizOption(this, ${index}, ${quiz.correct})">
+                            ${String.fromCharCode(65 + index)}. ${option}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            return card;
+        }
+
+        // 퀴즈 옵션 선택
+        function selectQuizOption(element, selectedIndex, correctIndex) {
+            const options = element.parentElement.querySelectorAll('.quiz-option');
+            
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== correctIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            // 정답 설명 표시
+            const quiz = quizData.find(q => q.options[selectedIndex] === element.textContent.split('. ')[1]);
+            if (quiz) {
+                setTimeout(() => {
+                    alert(`정답: ${quiz.options[correctIndex]}\n\n설명: ${quiz.explanation}`);
+                }, 500);
+            }
+        }
+
+        // 로그인 상태 확인
+        function checkLoginStatus() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                // 로그인되지 않은 경우 로그인 페이지로 이동
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // 사용자 정보 표시
+            displayUserInfo();
+        }
+
+        // 사용자 정보 표시
+        function displayUserInfo() {
+            const userName = sessionStorage.getItem('userName') || '사용자';
+            const department = sessionStorage.getItem('department') || '부서';
+            const employeeId = sessionStorage.getItem('employeeId') || '';
+            
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userDept').textContent = department;
+            document.getElementById('userAvatar').textContent = userName.charAt(0);
+            
+            // 사번을 제목에 추가
+            const titleElement = document.querySelector('.header h1');
+            titleElement.innerHTML = `🐱🐕 전파 동향조사 브리핑 <small style="font-size: 0.6em; opacity: 0.8;">(${employeeId})</small>`;
+        }
+
+        // 로그아웃
+        function logout() {
+            if (confirm('로그아웃하시겠습니까?')) {
+                sessionStorage.clear();
+                window.location.href = 'login.html';
+            }
+        }
+
+        // API 키 설정 모달 표시
+        function showApiKeyModal() {
+            const modal = document.createElement('div');
+            modal.className = 'api-key-modal';
+            modal.innerHTML = `
+                <div class="api-key-content">
+                    <h3>🔑 fal API 키 설정</h3>
+                    <p>AI 동영상 생성을 위해 fal API 키를 입력해주세요.</p>
+                    <div class="form-group">
+                        <label for="falApiKey">fal API 키:</label>
+                        <input type="password" id="falApiKey" placeholder="fal_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+                    </div>
+                    <div class="form-actions">
+                        <button onclick="saveApiKey()" class="save-btn">💾 저장</button>
+                        <button onclick="closeApiKeyModal()" class="cancel-btn">❌ 취소</button>
+                    </div>
+                    <div class="api-key-help">
+                        <p><strong>API 키 발급 방법:</strong></p>
+                        <ol>
+                            <li><a href="https://fal.ai/" target="_blank">fal.ai</a>에 가입</li>
+                            <li>대시보드에서 API 키 생성</li>
+                            <li>생성된 키를 위에 입력</li>
+                        </ol>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // API 키 저장
+        function saveApiKey() {
+            const apiKey = document.getElementById('falApiKey').value.trim();
+            if (!apiKey) {
+                alert('API 키를 입력해주세요.');
+                return;
+            }
+            
+            // API 키 저장
+            localStorage.setItem('falApiKey', apiKey);
+            
+            // fal 서비스에 API 키 설정
+            if (window.falVideoService) {
+                window.falVideoService.setApiKey(apiKey);
+            }
+            
+            alert('API 키가 저장되었습니다!');
+            closeApiKeyModal();
+        }
+
+        // API 키 모달 닫기
+        function closeApiKeyModal() {
+            const modal = document.querySelector('.api-key-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // AI 동영상 생성
+        async function generateAIVideo() {
+            const prompt = document.getElementById('videoPrompt').value.trim();
+            const duration = parseInt(document.getElementById('videoDuration').value);
+            const quality = document.getElementById('videoQuality').value;
+            
+            if (!prompt) {
+                alert('동영상 설명을 입력해주세요.');
+                return;
+            }
+
+            // API 키 확인
+            const apiKey = localStorage.getItem('falApiKey');
+            if (!apiKey) {
+                alert('fal API 키가 설정되지 않았습니다. API 키를 먼저 설정해주세요.');
+                showApiKeyModal();
+                return;
+            }
+
+            // fal 서비스 초기화
+            if (!window.falVideoService) {
+                // fal 서비스가 로드되지 않은 경우 직접 초기화
+                window.falVideoService = {
+                    apiKey: apiKey,
+                    baseUrl: 'https://fal.run/fal-ai',
+                    async generateVideoFromText(prompt, options) {
+                        try {
+                            const response = await fetch(`${this.baseUrl}/text-to-video`, {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Key ${this.apiKey}`,
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    prompt: prompt,
+                                    duration: options.duration || 10,
+                                    quality: options.quality || 'high'
+                                })
+                            });
+
+                            if (!response.ok) {
+                                throw new Error(`API 요청 실패: ${response.status}`);
+                            }
+
+                            const result = await response.json();
+                            return {
+                                success: true,
+                                videoUrl: result.video_url || result.url,
+                                duration: result.duration || options.duration,
+                                prompt: prompt
+                            };
+                        } catch (error) {
+                            console.error('동영상 생성 오류:', error);
+                            return {
+                                success: false,
+                                error: error.message
+                            };
+                        }
+                    }
+                };
+            }
+
+            // UI 상태 변경
+            const generateBtn = document.getElementById('generateBtn');
+            const progressDiv = document.getElementById('generationProgress');
+            const formDiv = document.getElementById('aiVideoForm');
+            
+            generateBtn.disabled = true;
+            generateBtn.textContent = '🎬 생성 중...';
+            progressDiv.style.display = 'block';
+            formDiv.style.display = 'none';
+
+            try {
+                // 동영상 생성 요청
+                const result = await window.falVideoService.generateVideoFromText(prompt, {
+                    duration: duration,
+                    quality: quality
+                });
+
+                if (result.success) {
+                    // 동영상 생성 성공
+                    showGeneratedVideo(result.videoUrl, prompt);
+                } else {
+                    // 동영상 생성 실패
+                    alert(`동영상 생성에 실패했습니다: ${result.error}`);
+                    resetVideoForm();
+                }
+            } catch (error) {
+                console.error('동영상 생성 중 오류:', error);
+                alert('동영상 생성 중 오류가 발생했습니다.');
+                resetVideoForm();
+            }
+        }
+
+        // 생성된 동영상 표시
+        function showGeneratedVideo(videoUrl, prompt) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoControls = document.getElementById('videoControls');
+            const progressDiv = document.getElementById('generationProgress');
+            const formDiv = document.getElementById('aiVideoForm');
+            
+            // 동영상 소스 설정
+            const video = document.getElementById('generatedVideo');
+            video.src = videoUrl;
+            
+            // 설명 업데이트
+            document.getElementById('videoDescription').textContent = prompt;
+            
+            // UI 표시
+            videoPlayer.style.display = 'block';
+            videoControls.style.display = 'block';
+            progressDiv.style.display = 'none';
+            formDiv.style.display = 'none';
+            
+            // 동영상 로드 완료 후 자동 재생
+            video.addEventListener('loadeddata', function() {
+                video.play();
+            });
+        }
+
+        // 동영상 폼 초기화
+        function resetVideoForm() {
+            const generateBtn = document.getElementById('generateBtn');
+            const progressDiv = document.getElementById('generationProgress');
+            const formDiv = document.getElementById('aiVideoForm');
+            
+            generateBtn.disabled = false;
+            generateBtn.textContent = '🎬 AI 동영상 생성';
+            progressDiv.style.display = 'none';
+            formDiv.style.display = 'block';
+        }
+
+        // 동영상 다운로드
+        function downloadVideo() {
+            const video = document.getElementById('generatedVideo');
+            if (video.src) {
+                const link = document.createElement('a');
+                link.href = video.src;
+                link.download = 'ai-generated-video.mp4';
+                link.click();
+            }
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            renderTrendCards();
+            renderQuizzes();
+            
+            // 저장된 API 키가 있으면 fal 서비스에 설정
+            const savedApiKey = localStorage.getItem('falApiKey');
+            if (savedApiKey && window.falVideoService) {
+                window.falVideoService.setApiKey(savedApiKey);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전파 동향조사 브리핑 - 로그인</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'styreneB', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: rgb(40, 44, 52);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(171, 178, 191);
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 50px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .logo-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: rgb(255, 255, 255);
+            margin-bottom: 12px;
+            letter-spacing: -0.025em;
+        }
+
+        .logo-subtitle {
+            font-size: 1.1rem;
+            color: rgb(156, 163, 175);
+            line-height: 1.5;
+        }
+
+        .login-form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: rgb(255, 255, 255);
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgb(255, 255, 255);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgb(198, 120, 221);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(198, 120, 221, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgb(156, 163, 175);
+        }
+
+        .form-input.error {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: rgb(198, 120, 221);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 20px rgba(198, 120, 221, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            background: rgb(209, 154, 102);
+            box-shadow: 0 8px 25px rgba(198, 120, 221, 0.4);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .forgot-password a {
+            color: rgb(198, 120, 221);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-password a:hover {
+            color: rgb(209, 154, 102);
+        }
+
+        .demo-login {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-login p {
+            color: rgb(156, 163, 175);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .demo-btn {
+            background: rgba(152, 195, 121, 0.2);
+            color: rgb(152, 195, 121);
+            border: 1px solid rgba(152, 195, 121, 0.3);
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .demo-btn:hover {
+            background: rgba(152, 195, 121, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .loading {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .loading.show {
+            display: inline-block;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 20px;
+                padding: 40px 30px;
+            }
+            
+            .logo-title {
+                font-size: 1.8rem;
+            }
+            
+            .logo-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-section">
+            <span class="logo-icon">📡</span>
+            <h1 class="logo-title">전파 동향조사 브리핑</h1>
+            <p class="logo-subtitle">회사 사번으로 로그인하여<br>전파 기술 동향을 학습하세요</p>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="employeeId" class="form-label">사번</label>
+                <input 
+                    type="text" 
+                    id="employeeId" 
+                    class="form-input" 
+                    placeholder="사번을 입력하세요 (예: 2024001)"
+                    maxlength="10"
+                    required
+                >
+                <div class="error-message" id="employeeIdError">올바른 사번 형식을 입력해주세요</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">비밀번호</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="form-input" 
+                    placeholder="비밀번호를 입력하세요"
+                    required
+                >
+                <div class="error-message" id="passwordError">비밀번호를 입력해주세요</div>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                로그인
+                <span class="loading" id="loading">
+                    <div class="spinner"></div>
+                </span>
+            </button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="#" onclick="showForgotPassword()">비밀번호를 잊으셨나요?</a>
+        </div>
+
+        <div class="demo-login">
+            <p>데모 버전으로 체험해보기</p>
+            <button class="demo-btn" onclick="demoLogin()">데모 로그인</button>
+        </div>
+    </div>
+
+    <script>
+        // 로그인 폼 처리
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleLogin();
+        });
+
+        // 입력 필드 유효성 검사
+        document.getElementById('employeeId').addEventListener('input', function() {
+            validateEmployeeId();
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            validatePassword();
+        });
+
+        // 사번 유효성 검사
+        function validateEmployeeId() {
+            const employeeId = document.getElementById('employeeId').value;
+            const errorElement = document.getElementById('employeeIdError');
+            const inputElement = document.getElementById('employeeId');
+            
+            if (employeeId.length === 0) {
+                showError(inputElement, errorElement, false);
+                return false;
+            }
+            
+            // 사번 형식 검사 (숫자로만 구성, 4-10자리)
+            const employeeIdPattern = /^\d{4,10}$/;
+            if (!employeeIdPattern.test(employeeId)) {
+                showError(inputElement, errorElement, true);
+                return false;
+            }
+            
+            showError(inputElement, errorElement, false);
+            return true;
+        }
+
+        // 비밀번호 유효성 검사
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('passwordError');
+            const inputElement = document.getElementById('password');
+            
+            if (password.length === 0) {
+                showError(inputElement, errorElement, true);
+                return false;
+            }
+            
+            showError(inputElement, errorElement, false);
+            return true;
+        }
+
+        // 에러 표시/숨김
+        function showError(inputElement, errorElement, show) {
+            if (show) {
+                inputElement.classList.add('error');
+                errorElement.classList.add('show');
+            } else {
+                inputElement.classList.remove('error');
+                errorElement.classList.remove('show');
+            }
+        }
+
+        // 로그인 처리
+        function handleLogin() {
+            const employeeId = document.getElementById('employeeId').value;
+            const password = document.getElementById('password').value;
+            
+            // 유효성 검사
+            if (!validateEmployeeId() || !validatePassword()) {
+                return;
+            }
+            
+            // 로딩 상태 표시
+            const loginBtn = document.getElementById('loginBtn');
+            const loading = document.getElementById('loading');
+            loginBtn.disabled = true;
+            loading.classList.add('show');
+            
+            // 실제 구현에서는 서버로 로그인 요청을 보냄
+            setTimeout(() => {
+                // 시뮬레이션된 로그인 성공
+                if (employeeId === '2024001' && password === 'password') {
+                    // 로그인 성공 시 세션 저장
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    sessionStorage.setItem('employeeId', employeeId);
+                    sessionStorage.setItem('userName', '김전파');
+                    sessionStorage.setItem('department', '전파기술팀');
+                    
+                    // 메인 페이지로 이동
+                    window.location.href = 'trend-briefing.html';
+                } else {
+                    // 로그인 실패
+                    alert('사번 또는 비밀번호가 올바르지 않습니다.\n\n데모 계정:\n사번: 2024001\n비밀번호: password');
+                    
+                    // 로딩 상태 해제
+                    loginBtn.disabled = false;
+                    loading.classList.remove('show');
+                }
+            }, 1500);
+        }
+
+        // 데모 로그인
+        function demoLogin() {
+            document.getElementById('employeeId').value = '2024001';
+            document.getElementById('password').value = 'password';
+            handleLogin();
+        }
+
+        // 비밀번호 찾기
+        function showForgotPassword() {
+            alert('비밀번호 찾기는 시스템 관리자에게 문의하세요.\n\n연락처: admin@company.com\n전화: 02-1234-5678');
+        }
+
+        // 페이지 로드 시 이미 로그인된 상태인지 확인
+        document.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                // 이미 로그인된 경우 메인 페이지로 이동
+                window.location.href = 'trend-briefing.html';
+            }
+        });
+    </script>
+</body>
+</html>

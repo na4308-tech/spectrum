@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "title": "6G 전파 기술 발전 동향 및 국제 표준화 현황",
+      "summary": "2024년 6G 전파 기술의 핵심 요소인 테라헤르츠 대역 활용, AI 기반 전파 최적화, 위성 통신 융합 등이 활발히 연구되고 있습니다. ITU-R에서 6G 전파 요구사항 표준화 작업이 진행 중이며, 한국은 주도적인 역할을 하고 있습니다.",
+      "keywords": ["6G", "테라헤르츠", "AI", "위성통신", "ITU-R", "표준화"],
+      "date": "2024-12-19T10:00:00Z",
+      "source": "전파관리소",
+      "url": "https://example.com/6g-radio-tech",
+      "imageUrl": "https://example.com/images/6g-technology.jpg"
+    },
+    {
+      "title": "스펙트럼 정책 및 주파수 할당 현황 분석",
+      "summary": "5G/6G 서비스를 위한 주파수 대역 할당이 전 세계적으로 확대되고 있습니다. 특히 3.5GHz, 26GHz, 28GHz 대역의 효율적 활용과 스펙트럼 공유 정책이 핵심 이슈로 부상하고 있습니다.",
+      "keywords": ["스펙트럼", "주파수할당", "5G", "6G", "3.5GHz", "26GHz", "28GHz"],
+      "date": "2024-12-18T14:30:00Z",
+      "source": "과학기술정보통신부",
+      "url": "https://example.com/spectrum-policy",
+      "imageUrl": "https://example.com/images/spectrum-allocation.jpg"
+    },
+    {
+      "title": "전자파 안전 및 전파환경 보호 정책 동향",
+      "summary": "증가하는 전파 환경에서의 전자파 안전 기준과 보호 정책이 강화되고 있습니다. WHO 가이드라인을 기반으로 한 국내 전자파 안전 기준 개정과 전파환경 모니터링 시스템 구축이 진행 중입니다.",
+      "keywords": ["전자파안전", "전파환경", "WHO", "모니터링", "보호정책"],
+      "date": "2024-12-17T09:15:00Z",
+      "source": "전파관리소",
+      "url": "https://example.com/emf-safety",
+      "imageUrl": "https://example.com/images/emf-safety.jpg"
+    }
+  ],
+  "totalCount": 3,
+  "crawlDate": "2024-12-19T10:00:00Z",
+  "source": "전파 산업 동향 크롤링"
+}
+

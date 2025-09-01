@@ -1,0 +1,290 @@
+{
+  "website": "ChatGPT",
+  "url": "https://chatgpt.com/",
+  "analysis_date": "2024-12-19",
+  "description": "ChatGPT 웹사이트의 UI 테마, 컴포넌트, 색상, 타이포그래피 분석 결과",
+  
+  "overview": {
+    "design_style": "미니멀리즘, 깔끔한 인터페이스",
+    "color_scheme": "고대비 흑백 기반",
+    "layout": "중앙 정렬, 반응형 디자인",
+    "target_audience": "AI 챗봇 사용자"
+  },
+  
+  "color_palette": {
+    "primary": {
+      "main": "#0D0D0D",
+      "description": "메인 텍스트 색상, 거의 검은색",
+      "usage": "제목, 본문 텍스트, 주요 버튼"
+    },
+    "secondary": {
+      "main": "#FFFFFF",
+      "description": "배경색, 순백색",
+      "usage": "페이지 배경, 카드 배경"
+    },
+    "accent": {
+      "main": "#004F99",
+      "description": "강조색, 진한 파란색",
+      "usage": "링크, 포커스 상태, 특별한 강조 요소"
+    },
+    "neutral": {
+      "border": "rgba(13, 13, 13, 0.05)",
+      "description": "테두리 색상, 매우 연한 회색",
+      "usage": "구분선, 테두리, 섹션 구분"
+    },
+    "button_colors": {
+      "primary": "#0D0D0D",
+      "secondary": "rgba(0, 0, 0, 0)",
+      "text_on_primary": "#FFFFFF",
+      "text_on_secondary": "#0D0D0D"
+    }
+  },
+  
+  "typography": {
+    "font_family": {
+      "primary": "ui-sans-serif, -apple-system, system-ui, \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"",
+      "description": "시스템 기본 폰트 스택, 크로스 플랫폼 호환성"
+    },
+    "font_sizes": {
+      "heading": "30px",
+      "body": "16px",
+      "button": "14px",
+      "small": "13px",
+      "large": "18px"
+    },
+    "font_weights": {
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600"
+    },
+    "line_heights": {
+      "heading": "1.2",
+      "body": "1.5"
+    }
+  },
+  
+  "spacing_system": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "24px",
+    "xxl": "32px",
+    "description": "8px 기반의 일관된 간격 시스템"
+  },
+  
+  "layout": {
+    "main_container": {
+      "max_width": "none",
+      "margin": "0px",
+      "padding": "0px",
+      "text_align": "center"
+    },
+    "header": {
+      "height": "auto",
+      "background": "transparent",
+      "border_bottom": "0px solid rgba(13, 13, 13, 0.05)"
+    },
+    "content_area": {
+      "padding": "0px",
+      "margin": "0px",
+      "background": "transparent"
+    }
+  },
+  
+  "components": {
+    "header": {
+      "logo": {
+        "type": "button",
+        "background": "transparent",
+        "border": "0px solid rgba(13, 13, 13, 0.05)",
+        "border_radius": "8px",
+        "padding": "0px 10px",
+        "font_size": "18px",
+        "font_weight": "400"
+      },
+      "navigation": {
+        "login_button": {
+          "background": "#0D0D0D",
+          "color": "#FFFFFF",
+          "border": "0.8px solid transparent",
+          "border_radius": "2.68435e+07px",
+          "padding": "0px 10px",
+          "font_size": "12px",
+          "font_weight": "500"
+        },
+        "signup_button": {
+          "background": "transparent",
+          "color": "#0D0D0D",
+          "border": "0px solid rgba(13, 13, 13, 0.05)",
+          "border_radius": "8px",
+          "padding": "0px 10px",
+          "font_size": "18px",
+          "font_weight": "400"
+        }
+      }
+    },
+    
+    "main_heading": {
+      "text": "ChatGPT",
+      "font_size": "30px",
+      "font_weight": "600",
+      "color": "#0D0D0D",
+      "text_align": "center",
+      "margin": "0px 0px 16px"
+    },
+    
+    "input_area": {
+      "main_input": {
+        "background": "transparent",
+        "color": "#0D0D0D",
+        "border": "0px solid #9B9B9B",
+        "border_radius": "0px",
+        "padding": "0px 0px 16px",
+        "font_size": "16px",
+        "min_height": "0px",
+        "box_shadow": "rgb(13, 13, 13) 0px 0px 0px 0px"
+      },
+      "placeholder_text": "무엇이든 물어보세요",
+      "action_buttons": {
+        "attachment": {
+          "background": "transparent",
+          "color": "#5D5D5D",
+          "border": "0px solid rgba(13, 13, 13, 0.05)",
+          "border_radius": "0px",
+          "padding": "8px",
+          "width": "70px",
+          "height": "34.4px"
+        },
+        "search": {
+          "background": "#ECECEC",
+          "color": "#0D0D0D",
+          "border": "0px solid rgba(13, 13, 13, 0.05)",
+          "border_radius": "2.68435e+07px",
+          "padding": "8px",
+          "width": "70px",
+          "height": "36px"
+        },
+        "voice": {
+          "background": "transparent",
+          "color": "#0D0D0D",
+          "border": "0px solid rgba(13, 13, 13, 0.05)",
+          "border_radius": "0px",
+          "padding": "8px"
+        }
+      }
+    },
+    
+    "suggestions": {
+      "container": {
+        "background": "transparent",
+        "border": "0px solid rgba(13, 13, 13, 0.05)",
+        "border_radius": "0px",
+        "padding": "8px 0px",
+        "margin": "0px"
+      },
+      "items": [
+        {
+          "text": "텍스트 요약",
+          "background": "transparent",
+          "color": "#0D0D0D",
+          "border": "0.8px solid rgba(13, 13, 13, 0.1)",
+          "border_radius": "2.68435e+07px",
+          "padding": "8px 12px",
+          "font_size": "13px",
+          "font_weight": "400"
+        },
+        {
+          "text": "데이터 분석",
+          "background": "transparent",
+          "color": "#0D0D0D",
+          "border": "0.8px solid rgba(13, 13, 13, 0.1)",
+          "border_radius": "2.68435e+07px",
+          "padding": "8px 12px",
+          "font_size": "13px",
+          "font_weight": "400"
+        },
+        {
+          "text": "코딩",
+          "background": "transparent",
+          "color": "#0D0D0D",
+          "border": "0.8px solid rgba(13, 13, 13, 0.1)",
+          "border_radius": "2.68435e+07px",
+          "padding": "8px 12px",
+          "font_size": "13px",
+          "font_weight": "400"
+        },
+        {
+          "text": "글쓰기 도움",
+          "background": "transparent",
+          "color": "#0D0D0D",
+          "border": "0.8px solid rgba(13, 13, 13, 0.1)",
+          "border_radius": "2.68435e+07px",
+          "padding": "8px 12px",
+          "font_size": "13px",
+          "font_weight": "400"
+        }
+      ]
+    },
+    
+    "footer": {
+      "text": "ChatGPT에 메시지를 보냄으로써, 당사 이용약관에 동의하고 개인정보 보호 정책 및 이의 한국 부록을 읽은 것으로 간주합니다.",
+      "links": [
+        {
+          "text": "이용약관",
+          "url": "https://openai.com/terms"
+        },
+        {
+          "text": "개인정보 보호 정책",
+          "url": "https://openai.com/privacy"
+        },
+        {
+          "text": "한국 부록",
+          "url": "https://openai.com/ko/policies/kr-privacy-policy-addendum"
+        }
+      ]
+    }
+  },
+  
+  "interaction_patterns": {
+    "hover_effects": "버튼에 마우스 오버 시 배경색 변경",
+    "focus_states": "입력 필드 포커스 시 파란색 테두리",
+    "button_states": "활성/비활성 상태에 따른 색상 변화",
+    "transitions": "부드러운 색상 전환 효과"
+  },
+  
+  "responsive_design": {
+    "breakpoints": {
+      "mobile": "320px - 768px",
+      "tablet": "768px - 1024px",
+      "desktop": "1024px+"
+    },
+    "adaptive_elements": [
+      "헤더 네비게이션",
+      "메인 입력 영역",
+      "제안 카테고리",
+      "버튼 크기 및 간격"
+    ]
+  },
+  
+  "accessibility": {
+    "color_contrast": "고대비 흑백 조합으로 가독성 향상",
+    "focus_indicators": "명확한 포커스 상태 표시",
+    "semantic_markup": "적절한 HTML 시맨틱 태그 사용",
+    "screen_reader": "스크린 리더 지원을 위한 aria-label 사용"
+  },
+  
+  "design_principles": {
+    "simplicity": "불필요한 요소 제거, 핵심 기능에 집중",
+    "clarity": "명확한 시각적 계층 구조",
+    "consistency": "일관된 색상, 간격, 타이포그래피",
+    "accessibility": "모든 사용자를 위한 접근성 고려"
+  },
+  
+  "implementation_notes": {
+    "css_framework": "커스텀 CSS, 프레임워크 미사용",
+    "icon_system": "SVG 아이콘 사용",
+    "animation": "최소한의 애니메이션, 성능 최적화",
+    "browser_support": "모던 브라우저 지원, 점진적 향상"
+  }
+}
